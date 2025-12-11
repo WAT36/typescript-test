@@ -19,7 +19,14 @@ export default async function BlogPage() {
   const buildTime = new Date().toISOString();
 
   return (
-    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
+    <div
+      style={{
+        padding: "20px",
+        maxWidth: "800px",
+        margin: "0 auto",
+        color: "black",
+      }}
+    >
       <h1>ブログ記事一覧 (SSG)</h1>
       <p
         style={{
