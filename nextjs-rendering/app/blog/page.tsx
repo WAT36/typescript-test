@@ -27,7 +27,7 @@ export default async function BlogPage() {
         color: "black",
       }}
     >
-      <h1>ブログ記事一覧 (SSG)</h1>
+      <h1 style={{ color: "white" }}>ブログ記事一覧 (SSG)</h1>
       <p
         style={{
           background: "#fff3cd",
@@ -60,7 +60,7 @@ export default async function BlogPage() {
       <div
         style={{
           marginTop: "30px",
-          padding: "15px",
+          padding: "15px 20px",
           background: "#e7f3ff",
           borderRadius: "5px",
         }}
