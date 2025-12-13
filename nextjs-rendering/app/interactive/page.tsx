@@ -40,7 +40,7 @@ export default function InteractivePage() {
         color: "black",
       }}
     >
-      <h1>インタラクティブページ (CSR)</h1>
+      <h1 style={{ color: "white" }}>インタラクティブページ (CSR)</h1>
 
       <div
         style={{
@@ -103,7 +103,7 @@ export default function InteractivePage() {
           boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
         }}
       >
-        <h2 style={{ marginTop: 0 }}>👥 ユーザー一覧 (API取得)</h2>
+        <h2 style={{ marginTop: 0 }}>ユーザー一覧 (API取得)</h2>
         {loading ? (
           <div style={{ textAlign: "center", padding: "20px" }}>
             <p style={{ fontSize: "18px" }}>読み込み中...</p>
@@ -158,7 +158,7 @@ export default function InteractivePage() {
       <div
         style={{
           marginTop: "30px",
-          padding: "20px",
+          padding: "20px 20px",
           background: "#fff3e0",
           borderRadius: "5px",
           border: "1px solid #ffb74d",
@@ -176,7 +176,7 @@ export default function InteractivePage() {
       <div
         style={{
           marginTop: "20px",
-          padding: "15px",
+          padding: "15px 20px",
           background: "#e7f3ff",
           borderRadius: "5px",
         }}
