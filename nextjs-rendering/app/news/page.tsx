@@ -51,7 +51,7 @@ export default async function NewsPage() {
         color: "black",
       }}
     >
-      <h1>最新ニュース (ISR)</h1>
+      <h1 style={{ color: "white" }}>最新ニュース (ISR)</h1>
 
       <div
         style={{
@@ -108,7 +108,7 @@ export default async function NewsPage() {
       <div
         style={{
           marginTop: "30px",
-          padding: "20px",
+          padding: "20px 20px",
           background: "#d1ecf1",
           borderRadius: "5px",
           border: "1px solid #bee5eb",
@@ -126,7 +126,7 @@ export default async function NewsPage() {
       <div
         style={{
           marginTop: "20px",
-          padding: "15px",
+          padding: "15px 20px",
           background: "#e7f3ff",
           borderRadius: "5px",
         }}
