@@ -1,34 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useQuery } from '@tanstack/react-query'
 import './App.css'
 
+// ユーザーの型定義
+interface User {
+  id: number
+  name: string
+  email: string
+  phone: string
+  website: string
+}
+
+// ユーザーデータを取得する関数
+const fetchUsers = async (): Promise<User[]> => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  if (!response.ok) {
+    throw new Error('ネットワークエラーが発生しました')
+  }
+  return response.json()
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  // useQueryフックを使用してデータを取得
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['users'], // キャッシュのキー
+    queryFn: fetchUsers, // データ取得関数
+  })
+
+  if (isLoading) {
+    return <div className="loading">読み込み中...</div>
+  }
+
+  if (isError) {
+    return <div className="error">エラー: {error.message}</div>
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <h1>ユーザー一覧</h1>
+      <div className="user-list">
+        {data?.map((user) => (
+          <div key={user.id} className="user-card">
+            <h2>{user.name}</h2>
+            <p>Email: {user.email}</p>
+            <p>Phone: {user.phone}</p>
+            <p>Website: {user.website}</p>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
