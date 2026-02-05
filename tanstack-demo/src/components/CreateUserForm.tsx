@@ -10,7 +10,7 @@ interface User {
 
 function CreateUserForm() {
   const queryClient = useQueryClient()
-  
+
   const mutation = useMutation({
     mutationFn: async (newUser: Omit<User, 'id'>) => {
       const response = await fetch('https://jsonplaceholder.typicode.com/users', {
@@ -20,15 +20,39 @@ function CreateUserForm() {
           'Content-Type': 'application/json',
         },
       })
+      if (!response.ok) {
+        throw new Error('ユーザーの作成に失敗しました')
+      }
       return response.json()
     },
-    onSuccess: (data) => {
-      // JSONPlaceholderは実際にはデータを保存しないため、
-      // キャッシュに直接追加して画面に反映させます
-      queryClient.setQueryData(['users'], (oldData: User[] | undefined) => {
-        if (!oldData) return [data]
-        return [...oldData, data]
+    onMutate: async (newUser) => {
+      // 進行中のクエリをキャンセル
+      await queryClient.cancelQueries({ queryKey: ['users'] })
+      
+      // 以前のデータを保存（ロールバック用）
+      const previousUsers = queryClient.getQueryData(['users'])
+      
+      // 楽観的に更新 - サーバーのレスポンスを待たずにUIを更新
+      queryClient.setQueryData(['users'], (old: User[] | undefined) => {
+        const optimisticUser: User = {
+          id: Date.now(), // 仮のID
+          ...newUser,
+        }
+        return old ? [...old, optimisticUser] : [optimisticUser]
       })
+      
+      return { previousUsers }
+    },
+    onError: (err, newUser, context) => {
+      // エラー時にロールバック
+      if (context?.previousUsers) {
+        queryClient.setQueryData(['users'], context.previousUsers)
+      }
+    },
+    onSettled: () => {
+      // 成功・失敗に関わらず再取得（本来はここで最新データを取得）
+      // JSONPlaceholderは実際にデータを保存しないため、この例では省略可能
+      // queryClient.invalidateQueries({ queryKey: ['users'] })
     },
   })
 
@@ -47,7 +71,7 @@ function CreateUserForm() {
       <button type="submit" disabled={mutation.isPending}>
         {mutation.isPending ? '作成中...' : 'ユーザーを作成'}
       </button>
-      {mutation.isError && <p>エラーが発生しました</p>}
+      {mutation.isError && <p>エラーが発生しました（元に戻りました）</p>}
       {mutation.isSuccess && <p>ユーザーを作成しました！</p>}
     </form>
   )
