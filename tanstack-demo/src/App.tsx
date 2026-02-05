@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import CreateUserForm from './components/CreateUserForm'
 import './App.css'
 
 // ユーザーの型定義
@@ -20,10 +21,9 @@ const fetchUsers = async (): Promise<User[]> => {
 }
 
 function App() {
-  // useQueryフックを使用してデータを取得
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['users'], // キャッシュのキー
-    queryFn: fetchUsers, // データ取得関数
+    queryKey: ['users'],
+    queryFn: fetchUsers,
   })
 
   if (isLoading) {
@@ -37,6 +37,7 @@ function App() {
   return (
     <div className="App">
       <h1>ユーザー一覧</h1>
+      <CreateUserForm />
       <div className="user-list">
         {data?.map((user) => (
           <div key={user.id} className="user-card">
