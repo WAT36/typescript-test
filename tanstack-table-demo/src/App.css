@@ -1,42 +1,247 @@
-#root {
-  max-width: 1280px;
+.App {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h1 {
+  color: #333;
+  margin-bottom: 1.5rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
 }
 
-.card {
-  padding: 2em;
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.read-the-docs {
-  color: #888;
+th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+tbody tr:hover {
+  background: #f8f9fa;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ステータスバッジ */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* 権限バッジ */
+.role-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.role-admin {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.role-user {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.role-guest {
+  background: #f5f5f5;
+  color: #6c757d;
+}
+
+/* ソートボタン */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  background: #e9ecef;
+}
+
+.sort-indicator {
+  margin-left: 0.5rem;
+}
+
+/* グローバルフィルター */
+.global-filter {
+  margin-bottom: 1rem;
+}
+
+.global-filter input {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.global-filter input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* ページネーション */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.pagination button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.page-size-select {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+/* 行選択 */
+.row-selected {
+  background: #e7f1ff !important;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+/* アクションボタン */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.25rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.btn-edit {
+  background: #ffc107;
+  color: #212529;
+}
+
+.btn-edit:hover {
+  background: #e0a800;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+/* 選択されたアイテムの操作バー */
+.selection-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #e7f1ff;
+  border-radius: 8px;
+  border: 1px solid #b6d4fe;
+}
+
+.selection-bar span {
+  color: #004085;
+  font-weight: 500;
+}
+
+.selection-bar button {
+  padding: 0.5rem 1rem;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.selection-bar button:hover {
+  background: #c82333;
 }
