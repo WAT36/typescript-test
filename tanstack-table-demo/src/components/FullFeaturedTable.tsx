@@ -12,6 +12,8 @@ import {
   type PaginationState,
   type RowSelectionState,
   type VisibilityState,
+  type HeaderContext,
+  type CellContext,
 } from "@tanstack/react-table";
 import type { User } from "../data/users";
 
@@ -42,7 +44,7 @@ function FullFeaturedTable({ data, onEdit, onDelete }: FullFeaturedTableProps) {
       // 選択チェックボックス列
       {
         id: "select",
-        header: ({ table }: any) => (
+        header: ({ table }: HeaderContext<User, unknown>) => (
           <input
             type="checkbox"
             className="checkbox"
@@ -50,7 +52,7 @@ function FullFeaturedTable({ data, onEdit, onDelete }: FullFeaturedTableProps) {
             onChange={table.getToggleAllRowsSelectedHandler()}
           />
         ),
-        cell: ({ row }: any) => (
+        cell: ({ row }: CellContext<User, unknown>) => (
           <input
             type="checkbox"
             className="checkbox"
@@ -115,7 +117,7 @@ function FullFeaturedTable({ data, onEdit, onDelete }: FullFeaturedTableProps) {
       {
         id: "actions",
         header: "操作",
-        cell: ({ row }: any) => (
+        cell: ({ row }: CellContext<User, unknown>) => (
           <div className="action-buttons">
             <button
               className="btn btn-edit"
@@ -135,7 +137,7 @@ function FullFeaturedTable({ data, onEdit, onDelete }: FullFeaturedTableProps) {
         enableHiding: false,
       },
     ],
-    [onEdit, onDelete],
+    [onEdit, onDelete]
   );
 
   const table = useReactTable({
@@ -344,7 +346,7 @@ function FullFeaturedTable({ data, onEdit, onDelete }: FullFeaturedTableProps) {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                       {header.column.getCanSort() && (
                         <span className="sort-indicator">
@@ -380,7 +382,7 @@ function FullFeaturedTable({ data, onEdit, onDelete }: FullFeaturedTableProps) {
                     <td key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </td>
                   ))}
