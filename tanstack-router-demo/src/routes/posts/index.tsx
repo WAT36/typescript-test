@@ -1,33 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { z } from "zod";
 
-// サンプルデータ
-const posts = [
-  { id: 1, title: "TanStack Routerの基本" },
-  { id: 2, title: "動的ルートの使い方" },
-  { id: 3, title: "データローディングのベストプラクティス" },
-];
+// 検索パラメータのスキーマを定義
+const postsSearchSchema = z.object({
+  page: z.number().optional().default(1),
+  filter: z.enum(["all", "published", "draft"]).optional().default("all"),
+});
 
 export const Route = createFileRoute("/posts/")({
+  // 検索パラメータのバリデーション
+  validateSearch: postsSearchSchema,
   component: PostsPage,
 });
 
 function PostsPage() {
+  // 検索パラメータを型安全に取得
+  const { page, filter } = Route.useSearch();
+
   return (
     <div>
       <h1>📝 記事一覧</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id} style={{ marginBottom: "0.5rem" }}>
-            <Link
-              to="/posts/$postId"
-              params={{ postId: String(post.id) }}
-              style={{ textDecoration: "none", color: "#0066cc" }}
-            >
-              {post.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <p>現在のページ: {page}</p>
+      <p>フィルター: {filter}</p>
+
+      {/* 検索パラメータ付きのリンク */}
+      <Link to="/posts" search={{ page: 2, filter: "published" }}>
+        2ページ目（公開済みのみ）
+      </Link>
     </div>
   );
 }
