@@ -19,7 +19,7 @@ function PostsPage() {
 
   return (
     <div>
-      <h1>📝 記事一覧</h1>
+      <h1>記事一覧</h1>
       <p>現在のページ: {page}</p>
       <p>フィルター: {filter}</p>
 

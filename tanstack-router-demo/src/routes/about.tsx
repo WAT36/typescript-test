@@ -7,7 +7,7 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <div>
-      <h1>📖 About</h1>
+      <h1>About</h1>
       <p>TanStack Routerは、型安全なルーティングを提供するライブラリです。</p>
       <h2>主な特徴</h2>
       <ul>
