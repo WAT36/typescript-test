@@ -18,10 +18,7 @@ console.log(PasswordSchema.safeParse("Strong1Pass"));
 // → { success: true, data: "Strong1Pass" }
 
 // --- transform: パース時にデータを変換 ---
-const TrimmedLowerEmail = z
-  .string()
-  .email()
-  .transform((val) => val.trim().toLowerCase());
+const TrimmedLowerEmail = z.string().trim().toLowerCase().email();
 
 console.log(TrimmedLowerEmail.parse("  TARO@Example.COM  "));
 // → "taro@example.com"
