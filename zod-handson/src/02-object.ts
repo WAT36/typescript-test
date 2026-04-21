@@ -4,7 +4,7 @@ import { z } from "zod";
 const UserSchema = z.object({
   id: z.number().int().positive(),
   name: z.string().min(1, { error: "名前は必須です" }),
-  email: z.string().email("有効なメールアドレスを入力してください"),
+  email: z.string().email({ error: "有効なメールアドレスを入力してください" }),
   age: z.number().int().min(0).optional(), // 任意項目
   role: z.enum(["admin", "editor", "viewer"]), // 列挙型
   createdAt: z.iso.datetime(), // ISO 8601 形式の日時文字列

@@ -3,12 +3,12 @@ import { z } from "zod";
 // --- refine: カスタムバリデーション ---
 const PasswordSchema = z
   .string()
-  .min(8, "8文字以上で入力してください")
+  .min(8, { error: "8文字以上で入力してください" })
   .refine((val) => /[A-Z]/.test(val), {
-    message: "大文字を1文字以上含めてください",
+    error: "大文字を1文字以上含めてください",
   })
   .refine((val) => /[0-9]/.test(val), {
-    message: "数字を1文字以上含めてください",
+    error: "数字を1文字以上含めてください",
   });
 
 console.log(PasswordSchema.safeParse("weakpass"));

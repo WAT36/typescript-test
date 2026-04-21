@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // 住所スキーマ
 const AddressSchema = z.object({
-  postalCode: z.string().regex(/^\d{3}-\d{4}$/, "例: 100-0001"),
+  postalCode: z.string().regex(/^\d{3}-\d{4}$/, { error: "例: 100-0001" }),
   prefecture: z.string(),
   city: z.string(),
   street: z.string().optional(),
